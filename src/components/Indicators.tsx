@@ -89,7 +89,7 @@ export function Indicators(props: {
               <Dot
                 key={idx}
                 size={width}
-                active={idx == props.currentIdx || idx === hoveringIdx}
+                active={idx === props.currentIdx || idx === hoveringIdx}
               />
             </Box>
           ))}
@@ -124,7 +124,7 @@ export function Indicators(props: {
                   cursor: 'pointer',
                   transition: 'transform 400ms',
                   transform: `scale(${
-                    idx == props.currentIdx || idx === hoveringIdx
+                    idx === props.currentIdx || idx === hoveringIdx
                       ? '1,1'
                       : '0,0'
                   })`,
