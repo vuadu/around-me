@@ -15,6 +15,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
+    "theme-ui": "^0.3.1",
     "typescript": "~3.7.2"
   },
   "scripts": {
@@ -48,6 +49,7 @@
     "@storybook/node-logger": "^6.0.18",
     "@storybook/preset-create-react-app": "^3.1.4",
     "@storybook/react": "^6.0.18",
+    "@types/theme-ui": "^0.3.6",
     "babel-loader": "^8.1.0",
     "react-is": "^16.13.1",
     "storybook-addon-emotion-theme": "^2.1.1"
