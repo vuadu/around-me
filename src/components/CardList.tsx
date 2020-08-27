@@ -102,7 +102,7 @@ export function CardList(props: {
     setCurrentIdx(0);
   }, [props.list]);
   return (
-    <Box sx={{ width, overflow: 'hidden' }}>
+    <Box sx={{ width, overflow: 'hidden', position: 'relative' }}>
       <Flex
         sx={{
           justifyContent: 'flex-start',

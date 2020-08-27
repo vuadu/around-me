@@ -111,7 +111,7 @@ export function Headings(props: {
               ? { bottom: `calc(${height} / 2)` }
               : currentIdx < idx
               ? { bottom: 0 }
-              : { top: 0 }),
+              : { bottom: `calc(${height} - 106px)` }),
             opacity: Math.abs(currentIdx - idx) < 2 ? 1 : 0,
           }}
         >

@@ -80,7 +80,7 @@ export function Indicators(props: {
                 position: 'absolute',
                 left: 0,
                 top: `calc(${height} / 2 + ${height} / ${
-                  maxDisplayingDots + 1
+                  maxDisplayingDots + 2
                 } * ${idx - props.currentIdx})`,
 
                 transition: 'top 400ms',
@@ -103,7 +103,7 @@ export function Indicators(props: {
                 position: 'absolute',
                 left: 0,
                 top: `calc(${height} / 2 + ${height} / ${
-                  maxDisplayingDots + 1
+                  maxDisplayingDots + 2
                 } * ${idx - props.currentIdx})`,
                 width,
                 height: width,
