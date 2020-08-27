@@ -1,11 +1,12 @@
 import './App.css';
 
 import React from 'react';
-import { Flex } from 'theme-ui';
+import { Box, Flex } from 'theme-ui';
 
 import { CardList } from './components/CardList';
 import { Headings } from './components/Headings';
 import { Indicators } from './components/Indicators';
+import { Slideshow } from './components/Slideshow';
 
 const description =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
@@ -14,6 +15,7 @@ const data = [
     title: 'Australia',
     buttonColor: 'red',
     description: `1 ${description}`,
+    image: 'https://via.placeholder.com/1920x1080/333333',
     items: [
       {
         title: '11',
@@ -41,7 +43,7 @@ const data = [
     title: 'Europe',
     buttonColor: 'blue',
     description: `2 ${description.toUpperCase()}`,
-
+    image: 'https://via.placeholder.com/1920x1080/222222',
     items: [
       {
         title: '21',
@@ -69,6 +71,7 @@ const data = [
     title: 'Africa',
     buttonColor: 'red',
     description: `3 ${description}`,
+    image: 'https://via.placeholder.com/1920x1080/333333',
     items: [
       {
         title: '31',
@@ -96,6 +99,7 @@ const data = [
     title: 'Asia',
     buttonColor: 'green',
     description: `4 ${description.toUpperCase()}`,
+    image: 'https://via.placeholder.com/1920x1080/333333',
     items: [
       {
         title: '41',
@@ -123,6 +127,7 @@ const data = [
     title: 'America',
     buttonColor: 'orange',
     description: `5 ${description}`,
+    image: 'https://via.placeholder.com/1920x1080/333333',
     items: [
       {
         title: '51',
@@ -150,6 +155,7 @@ const data = [
     title: 'Arctic',
     buttonColor: 'red',
     description: `6 ${description.toUpperCase()}`,
+    image: 'https://via.placeholder.com/1920x1080/333333',
     items: [
       {
         title: '61',
@@ -192,7 +198,19 @@ function App() {
         minHeight: '100vh',
       }}
     >
-      <Flex></Flex>
+      <Box
+        sx={{
+          width: '100vw',
+          height: '100vh',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          backgroundColor: '#778',
+        }}
+      >
+        <Slideshow slides={data} currentIdx={currentIdx} />
+      </Box>
+      <Flex />
       <Flex sx={{ justifyContent: 'space-between', ml: 40, mb: 40 }}>
         <Indicators
           total={data.length}
