@@ -2,13 +2,9 @@ import React from 'react';
 
 import { Indicators } from './Indicators';
 
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 export default {
   title: 'Indicators',
   component: Indicators,
-  // argTypes: {
-  //   backgroundColor: { control: 'color' },
-  // },
 };
 
 export const DefaultIndicator = () => {

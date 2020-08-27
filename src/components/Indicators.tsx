@@ -18,7 +18,6 @@ const Dot = (props: { active?: boolean; size: string }) => {
           width: props.active ? '100%' : 8,
           height: props.active ? '100%' : 8,
           borderRadius: 100,
-          //   backgroundColor: WHITE5,
           backgroundColor: 'white',
           transition: '400ms',
           boxShadow: '0px 0px 4px 2px rgba(0,0,0,0.1)',
