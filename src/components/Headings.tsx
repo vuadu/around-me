@@ -59,7 +59,7 @@ export function Headings(props: {
   const { data, currentIdx, width = '50vw', height = '80vh' } = props;
   const fadingTextPropsTransition = useTransition(
     data[currentIdx],
-    (item) => item.description ?? '',
+    (item) => item.title,
     {
       from: { opacity: -2 },
       enter: { opacity: 1 },
