@@ -35,6 +35,7 @@ const Pagination = (props: { current: number; total: number }) => (
       transform: 'rotate(-90deg)',
       height: 80,
       fontSize: 14,
+      fontWeight: 'bold',
     }}
   >
     <Text>{props.current.toString().padStart(2, '0')}</Text>

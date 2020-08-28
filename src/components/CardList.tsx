@@ -37,7 +37,14 @@ const Controls = (props: { onNext?: () => void; onPrev?: () => void }) => (
 );
 
 const Pagination = (props: { current: number; total: number }) => (
-  <Flex sx={{ alignItems: 'center', color: 'white' }}>
+  <Flex
+    sx={{
+      alignItems: 'center',
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 20,
+    }}
+  >
     <Text>{props.current.toString().padStart(2, '0')}</Text>
     <Box
       sx={{
@@ -85,30 +92,54 @@ export const AspectRatio = ({
   </Box>
 );
 
-const Card = ({ image, w }: { image: string; w: string }) => {
-  const transition = useTransition(image, (item) => item, {
+function useDelayedState<T>(value: T, delay: number) {
+  const [state, setState] = useState<T | null>(null);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setState(value);
+    }, delay);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [value]);
+  return [state];
+}
+
+const Card = ({
+  image,
+  w,
+  delay,
+  duration = 450,
+}: {
+  image: string;
+  w: string;
+  delay: number;
+  duration?: number;
+}) => {
+  const [delayedImage] = useDelayedState(image, delay);
+  const cardTransition = useTransition(delayedImage, (item) => item, {
     from: { transform: 'rotateY(180deg)' },
     enter: { transform: 'rotateY(0deg)' },
     leave: { transform: 'rotateY(-180deg)' },
-    config: { tension: 220, friction: 120, duration: 800 },
+    config: { tension: 220, friction: 120, duration },
   });
   return (
     <Box sx={{ perspective: 2000 }}>
       <AspectRatio
         ratio={401 / 569}
         sx={{
-          transition: 'transform 600ms',
+          // transition: `transform ${duration}ms`,
           transformStyle: 'preserve-3d',
         }}
       >
-        {transition.map(({ item, props, key }) => (
+        {cardTransition.map(({ item, props, key }) => (
           <animated.div
             style={{
               ...props,
               position: 'absolute',
               width: w,
               backfaceVisibility: 'hidden',
-              transition: 'width 600ms',
+              transition: `width ${duration}ms`,
             }}
             key={key}
           >
@@ -125,6 +156,58 @@ const Card = ({ image, w }: { image: string; w: string }) => {
           </animated.div>
         ))}
       </AspectRatio>
+    </Box>
+  );
+};
+
+const CardTitle = ({
+  dotSize,
+  rate,
+  title,
+  delay,
+  duration = 550,
+}: {
+  title: string;
+  dotSize: number;
+  rate: number;
+  delay: number;
+  duration?: number;
+}) => {
+  const [delayedTitle] = useDelayedState(title, delay);
+  const [delayedRate] = useDelayedState(rate, delay);
+  const titleTransition = useTransition(
+    { title: delayedTitle, rate: delayedRate },
+    (item) => item.title ?? '',
+    {
+      from: { opacity: -2 },
+      enter: { opacity: 1 },
+      leave: { opacity: -2 },
+      config: { tension: 220, friction: 120, duration },
+    }
+  );
+  return (
+    <Box sx={{ height: 75 }}>
+      {titleTransition.map(({ item, props, key }) => (
+        <animated.div style={{ ...props, position: 'absolute' }} key={key}>
+          <Text sx={{ color: 'white', fontWeight: 'bold' }}>{item.title}</Text>
+          <Flex>
+            {Array.from({ length: 5 }).map((_, idx) => (
+              <Box
+                sx={{
+                  width: dotSize,
+                  height: dotSize,
+                  borderRadius: dotSize,
+                  mr: dotSize,
+                  transition: 'all 500ms',
+                  my: 25,
+                  backgroundColor: 'white',
+                  opacity: idx < (item.rate ?? 0) ? 1 : 0.5,
+                }}
+              />
+            ))}
+          </Flex>
+        </animated.div>
+      ))}
     </Box>
   );
 };
@@ -166,26 +249,9 @@ export function CardList(props: {
                 flexShrink: 0,
               }}
             >
-              <Text sx={{ color: 'white', fontWeight: 'bold' }}>
-                {item.title}
-              </Text>
-              <Flex>
-                {Array.from({ length: 5 }).map((_, idx) => (
-                  <Box
-                    sx={{
-                      width: dotSize,
-                      height: dotSize,
-                      borderRadius: dotSize,
-                      mr: dotSize,
-                      transition: 'all 500ms',
-                      my: 25,
-                      backgroundColor: 'white',
-                      opacity: idx < item.rate ? 1 : 0.5,
-                    }}
-                  />
-                ))}
-              </Flex>
+              <CardTitle delay={150 * idx} {...{ ...item, dotSize }} />
               <Card
+                delay={150 * idx}
                 image={item.image}
                 w={`calc(${width} / ${isBig ? 2.5 : 2.8})`}
               />
