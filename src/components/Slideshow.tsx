@@ -22,17 +22,19 @@ export const Slideshow = (props: {
   currentIdx: number;
 }) => {
   const { duration = 1500 } = props;
-  const previousIdx = usePrevious(props.currentIdx);
   const [currentIdx, setCurrentIdx] = useState(props.currentIdx);
+  const previousIdx = usePrevious(currentIdx);
   const from = props.slides[previousIdx ?? currentIdx].image;
   const to = props.slides[currentIdx].image;
   const transition = GLTransitions[10];
   const [progress, setProgress] = useState(0);
   const INTERVAL = 1000 / 60;
   useEffect(() => {
-    setProgress(0);
-    setCurrentIdx(props.currentIdx);
-  }, [props.currentIdx]);
+    if (progress >= 1 && props.currentIdx !== currentIdx) {
+      setProgress(0);
+      setCurrentIdx(props.currentIdx);
+    }
+  }, [props.currentIdx, progress < 1]);
   useEffect(() => {
     if (progress < 1) {
       setTimeout(() => {
