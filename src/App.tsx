@@ -71,22 +71,22 @@ const data = [
     title: 'Africa',
     buttonColor: 'red',
     description: `3 ${description}`,
-    image: 'https://via.placeholder.com/1920x1080/333333',
+    image: '/images/africa-0.jpg',
     items: [
       {
         title: '31',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=31',
+        image: '/images/africa-1.jpg',
       },
       {
         title: '32',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=32',
+        image: '/images/africa-2.jpg',
       },
       {
         title: '33',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=33',
+        image: '/images/africa-3.jpg',
       },
       {
         title: '34',
@@ -99,22 +99,22 @@ const data = [
     title: 'Asia',
     buttonColor: 'green',
     description: `4 ${description.toUpperCase()}`,
-    image: 'https://via.placeholder.com/1920x1080/333333',
+    image: '/images/asia-0.jpg',
     items: [
       {
         title: '41',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=41',
+        image: '/images/asia-1.jpg',
       },
       {
         title: '42',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=42',
+        image: '/images/asia-2.jpg',
       },
       {
         title: '43',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=43',
+        image: '/images/asia-3.jpg',
       },
       {
         title: '44',

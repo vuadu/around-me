@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { animated, useTransition } from 'react-spring';
-import { AspectImage, AspectRatio, Box, Flex, Text } from 'theme-ui';
+import { AspectImage, Box, Flex, Text } from 'theme-ui';
 
 const Controls = (props: { onNext?: () => void; onPrev?: () => void }) => (
   <Flex sx={{ color: 'white', fontSize: 32 }}>
@@ -52,6 +52,39 @@ const Pagination = (props: { current: number; total: number }) => (
   </Flex>
 );
 
+export const AspectRatio = ({
+  ratio = 4 / 3,
+  children,
+  ...props
+}: React.PropsWithChildren<{ ratio: number }>) => (
+  <Box
+    sx={{
+      position: 'relative',
+      // overflow: 'hidden',
+    }}
+  >
+    <Box
+      sx={{
+        width: '100%',
+        height: 0,
+        paddingBottom: 100 / ratio + '%',
+      }}
+    />
+    <Box
+      {...props}
+      sx={{
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      }}
+    >
+      {children}
+    </Box>
+  </Box>
+);
+
 const Card = ({ image, w }: { image: string; w: string }) => {
   const transition = useTransition(image, (item) => item, {
     from: { transform: 'rotateY(180deg)' },
@@ -60,7 +93,7 @@ const Card = ({ image, w }: { image: string; w: string }) => {
     config: { tension: 220, friction: 120, duration: 800 },
   });
   return (
-    <Box sx={{ perspective: 1000 }}>
+    <Box sx={{ perspective: 2000 }}>
       <AspectRatio
         ratio={401 / 569}
         sx={{
@@ -79,7 +112,16 @@ const Card = ({ image, w }: { image: string; w: string }) => {
             }}
             key={key}
           >
-            <AspectImage src={item} ratio={401 / 569} />;
+            <AspectImage
+              src={item}
+              ratio={401 / 569}
+              sx={{
+                width: '100%',
+                height: '100%',
+                borderRadius: 8,
+                // overflow: 'hidden',
+              }}
+            />
           </animated.div>
         ))}
       </AspectRatio>
