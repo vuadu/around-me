@@ -39,7 +39,7 @@ export const Slideshow = (props: {
       }, INTERVAL);
     }
   }, [progress]);
-  console.log(progress, from, to);
+  // console.log(progress, previousIdx, props.currentIdx);
   const vw = Math.max(
     document.documentElement.clientWidth || 0,
     window.innerWidth || 0

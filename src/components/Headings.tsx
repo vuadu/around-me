@@ -1,16 +1,17 @@
 import React from 'react';
 import { animated, useTransition } from 'react-spring';
-import { Box, Button, Text } from 'theme-ui';
+import { Box, Button, Flex, Text } from 'theme-ui';
 
 const Heading = ({
   active,
   children,
-}: React.PropsWithChildren<{ active?: boolean }>) => {
+  duration,
+}: React.PropsWithChildren<{ active?: boolean; duration: string }>) => {
   const commonStyles = {
     fontWeight: 'bold',
     fontSize: active ? '150px' : '90px',
     letterSpacing: '-1px',
-    transition: 'font-size 800ms, opacity 800ms',
+    transition: `font-size ${duration} ease-out, opacity ${duration} ease-out`,
   };
 
   return (
@@ -45,6 +46,77 @@ const Heading = ({
   );
 };
 
+const Description = ({
+  item,
+  key,
+  onExplore,
+  width,
+  height,
+}: {
+  item: {
+    description?: string;
+    buttonColor: string;
+  };
+  key: string;
+  onExplore?: () => void;
+  width: string;
+  height: string;
+}) => {
+  const fadingTextPropsTransition = useTransition(item, () => key, {
+    from: { opacity: -2 },
+    enter: { opacity: 1 },
+    leave: { opacity: -2 },
+    config: { tension: 220, friction: 120, duration: 500 },
+  });
+  const fadingButtonPropsTransition = useTransition(item, () => key, {
+    from: { opacity: -2 },
+    enter: { opacity: 1 },
+    leave: { opacity: -2 },
+    config: { tension: 220, friction: 120, duration: 500, delay: 100 },
+  });
+  return (
+    <Text
+      sx={{
+        position: 'absolute',
+        top: `calc(${height} / 2 + 40px)`,
+        color: 'white',
+        fontSize: 16,
+        lineHeight: 2,
+      }}
+    >
+      {fadingTextPropsTransition.map(({ item, props, key }) => (
+        <animated.div
+          key={key}
+          style={{ ...props, width, position: 'absolute' }}
+        >
+          <Text>{item.description}</Text>
+        </animated.div>
+      ))}
+      {fadingButtonPropsTransition.map(({ item, props, key }) => (
+        <animated.div
+          key={`${key}-button`}
+          style={{ ...props, position: 'absolute', top: 100 }}
+        >
+          <Button
+            sx={{
+              color: 'white',
+              backgroundColor: item.buttonColor,
+              px: 30,
+              py: 10,
+              fontWeight: 'bold',
+            }}
+          >
+            <Flex>
+              Explore
+              <Text sx={{ ml: 80, opacity: 0.5 }}>→</Text>
+            </Flex>
+          </Button>
+        </animated.div>
+      ))}
+    </Text>
+  );
+};
+
 export function Headings(props: {
   data: {
     title: string;
@@ -57,56 +129,22 @@ export function Headings(props: {
   height?: string;
 }) {
   const { data, currentIdx, width = '50vw', height = '80vh' } = props;
-  const fadingTextPropsTransition = useTransition(
-    data[currentIdx],
-    (item) => item.title,
-    {
-      from: { opacity: -2 },
-      enter: { opacity: 1 },
-      leave: { opacity: -2 },
-      config: { tension: 220, friction: 120, duration: 2000 },
-    }
-  );
 
   return (
     <Box sx={{ position: 'relative', width, height }}>
-      <Text
-        sx={{
-          position: 'absolute',
-          top: `calc(${height} / 2 + 60px)`,
-          color: 'white',
-          fontSize: 16,
-          lineHeight: 2,
-        }}
-      >
-        {fadingTextPropsTransition.map(({ item, props, key }) => (
-          <animated.div
-            key={key}
-            style={{ ...props, width, position: 'absolute' }}
-          >
-            <Text>{item.description}</Text>
-            <Button
-              sx={{
-                color: 'white',
-                backgroundColor: item.buttonColor,
-                px: 30,
-                py: 10,
-              }}
-            >
-              Explore
-              <Text sx={{ ml: 80, opacity: 0.5, display: 'inline-block' }}>
-                →
-              </Text>
-            </Button>
-          </animated.div>
-        ))}
-      </Text>
+      <Description
+        item={data[currentIdx]}
+        key={data[currentIdx].title}
+        width={width}
+        height={height}
+        onExplore={() => props.onExplore?.(props.currentIdx)}
+      />
       {data.map((item, idx) => (
         <Box
           key={idx}
           sx={{
             position: 'absolute',
-            transition: 'all 800ms',
+            transition: 'bottom 450ms ease, opacity 150ms ease',
             ...(currentIdx === idx
               ? { bottom: `calc(${height} / 2)` }
               : currentIdx < idx
@@ -115,7 +153,9 @@ export function Headings(props: {
             opacity: Math.abs(currentIdx - idx) < 2 ? 1 : 0,
           }}
         >
-          <Heading active={idx === currentIdx}>{item.title}</Heading>
+          <Heading active={idx === currentIdx} duration="450ms">
+            {item.title}
+          </Heading>
         </Box>
       ))}
     </Box>
