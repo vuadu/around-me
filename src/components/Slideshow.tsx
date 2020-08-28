@@ -23,20 +23,24 @@ export const Slideshow = (props: {
 }) => {
   const { duration = 1500 } = props;
   const previousIdx = usePrevious(props.currentIdx);
-  const to = props.slides[props.currentIdx].image;
-  const from =
-    (previousIdx !== null && props.slides[previousIdx].image) || null;
+  const [currentIdx, setCurrentIdx] = useState(props.currentIdx);
+  const from = props.slides[previousIdx ?? currentIdx].image;
+  const to = props.slides[currentIdx].image;
   const transition = GLTransitions[10];
   const [progress, setProgress] = useState(0);
   const INTERVAL = 1000 / 60;
   useEffect(() => {
     setProgress(0);
+    setCurrentIdx(props.currentIdx);
   }, [props.currentIdx]);
   useEffect(() => {
     if (progress < 1) {
       setTimeout(() => {
         setProgress(progress + INTERVAL / duration);
       }, INTERVAL);
+    } else {
+      // setDoneIdx(props.currentIdx);
+      // console.log('set done', props.currentIdx);
     }
   }, [progress]);
   // console.log(progress, previousIdx, props.currentIdx);
@@ -49,9 +53,11 @@ export const Slideshow = (props: {
     window.innerHeight || 0
   );
 
+  // console.log(progress, previousIdx, props.currentIdx, doneIdx);
+
   return (
     <Surface width={vw} height={vh}>
-      {progress < 1 && from ? (
+      {progress > 0 ? (
         <GLTransition
           from={<GLImage source={from} resizeMode="cover" />}
           to={<GLImage source={to} resizeMode="cover" />}
@@ -59,7 +65,7 @@ export const Slideshow = (props: {
           transition={transition}
         />
       ) : (
-        <GLImage source={to} resizeMode="cover" />
+        <GLImage source={from} resizeMode="cover" />
       )}
     </Surface>
   );

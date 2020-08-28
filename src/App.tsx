@@ -69,7 +69,7 @@ const data = [
   },
   {
     title: 'Africa',
-    buttonColor: 'red',
+    buttonColor: '#603232',
     description: `3 ${description}`,
     image: '/images/africa-0.jpg',
     items: [
@@ -97,7 +97,7 @@ const data = [
   },
   {
     title: 'Asia',
-    buttonColor: 'green',
+    buttonColor: '#367C5C',
     description: `4 ${description.toUpperCase()}`,
     image: '/images/asia-0.jpg',
     items: [

@@ -78,7 +78,7 @@ const Description = ({
     <Text
       sx={{
         position: 'absolute',
-        top: `calc(${height} / 2 + 40px)`,
+        top: `calc(${height} / 2 + 20px)`,
         color: 'white',
         fontSize: 16,
         lineHeight: 2,
@@ -95,7 +95,7 @@ const Description = ({
       {fadingButtonPropsTransition.map(({ item, props, key }) => (
         <animated.div
           key={`${key}-button`}
-          style={{ ...props, position: 'absolute', top: 100 }}
+          style={{ ...props, position: 'absolute', top: 120 }}
         >
           <Button
             sx={{
