@@ -8,30 +8,30 @@ const Controls = (props: { onNext?: () => void; onPrev?: () => void }) => (
       sx={{
         justifyContent: 'center',
         alignItems: 'center',
-        width: 80,
-        height: 80,
-        borderRadius: 80,
+        width: '4vw',
+        height: '4vw',
+        borderRadius: '4vw',
         backgroundColor: `rgba(255,255,255,0.3)`,
         mr: 18,
         cursor: 'pointer',
       }}
       onClick={props.onPrev}
     >
-      ‹
+      〈
     </Flex>
     <Flex
       sx={{
         justifyContent: 'center',
         alignItems: 'center',
-        width: 80,
-        height: 80,
-        borderRadius: 80,
+        width: '4vw',
+        height: '4vw',
+        borderRadius: '4vw',
         backgroundColor: `rgba(255,255,255,0.3)`,
         cursor: 'pointer',
       }}
       onClick={props.onNext}
     >
-      ›
+      〉
     </Flex>
   </Flex>
 );
@@ -105,6 +105,8 @@ function useDelayedState<T>(value: T, delay: number) {
   return [state];
 }
 
+const IMAGE_RATIO = 401 / 569;
+
 const Card = ({
   image,
   w,
@@ -126,7 +128,7 @@ const Card = ({
   return (
     <Box sx={{ perspective: 2000 }}>
       <AspectRatio
-        ratio={401 / 569}
+        ratio={IMAGE_RATIO}
         sx={{
           // transition: `transform ${duration}ms`,
           transformStyle: 'preserve-3d',
@@ -145,7 +147,7 @@ const Card = ({
           >
             <AspectImage
               src={item}
-              ratio={401 / 569}
+              ratio={IMAGE_RATIO}
               sx={{
                 width: '100%',
                 height: '100%',

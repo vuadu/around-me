@@ -55,7 +55,7 @@ export function Indicators(props: {
 }) {
   const {
     height = '80vh',
-    width = '62px',
+    width = '3.22vw',
     maxDisplayingDots = 6,
     duration = '350ms',
   } = props;

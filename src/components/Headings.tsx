@@ -9,7 +9,7 @@ const Heading = ({
 }: React.PropsWithChildren<{ active?: boolean; duration: string }>) => {
   const commonStyles = {
     fontWeight: 'bold',
-    fontSize: active ? '150px' : '90px',
+    fontSize: active ? '7.5vw' : '4.7vw',
     letterSpacing: '-1px',
     transition: `font-size ${duration} ease-out, opacity ${duration} ease-out`,
   };
@@ -89,7 +89,17 @@ const Description = ({
           key={key}
           style={{ ...props, width, position: 'absolute' }}
         >
-          <Text>{item.description}</Text>
+          <Text
+            sx={{
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              display: '-webkit-box',
+              '-webkit-line-clamp': '2' as any,
+              '-webkit-box-orient': 'vertical' as any,
+            }}
+          >
+            {item.description}
+          </Text>
         </animated.div>
       ))}
       {fadingButtonPropsTransition.map(({ item, props, key }) => (

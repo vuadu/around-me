@@ -211,12 +211,14 @@ function App() {
         <Slideshow slides={data} currentIdx={currentIdx} />
       </Box>
       <Flex />
-      <Flex sx={{ justifyContent: 'space-between', ml: 40, mb: 40 }}>
-        <Indicators
-          total={data.length}
-          currentIdx={currentIdx}
-          onSelect={setCurrentIdx}
-        />
+      <Flex sx={{ justifyContent: 'space-between', mb: '2vw' }}>
+        <Box sx={{ ml: '2vw' }}>
+          <Indicators
+            total={data.length}
+            currentIdx={currentIdx}
+            onSelect={setCurrentIdx}
+          />
+        </Box>
         <Headings data={data} currentIdx={currentIdx} width="26vw" />
         <CardList list={data[currentIdx].items} width="54vw" />
       </Flex>
