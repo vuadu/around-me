@@ -3,7 +3,7 @@ import { jsx } from '@emotion/core';
 import React from 'react';
 import { Box, Flex, Text } from 'theme-ui';
 
-const Dot = (props: { active?: boolean; size: string }) => {
+const Dot = (props: { active?: boolean; size: string; duration: string }) => {
   return (
     <Flex
       sx={{
@@ -19,7 +19,7 @@ const Dot = (props: { active?: boolean; size: string }) => {
           height: props.active ? '100%' : 8,
           borderRadius: 100,
           backgroundColor: 'white',
-          transition: '400ms',
+          transition: `${props.duration} ease`,
           boxShadow: '0px 0px 4px 2px rgba(0,0,0,0.1)',
         }}
       />
@@ -49,9 +49,15 @@ export function Indicators(props: {
   onSelect?: (idx: number) => void;
   width?: string;
   height?: string;
+  duration?: string;
   maxDisplayingDots?: number;
 }) {
-  const { height = '80vh', width = '62px', maxDisplayingDots = 6 } = props;
+  const {
+    height = '80vh',
+    width = '62px',
+    maxDisplayingDots = 6,
+    duration = '350ms',
+  } = props;
   const [hoveringIdx, setHoveringIdx] = React.useState<number | null>(null);
   return (
     <Flex sx={{ height, width, flexDirection: 'column' }}>
@@ -83,10 +89,11 @@ export function Indicators(props: {
                   maxDisplayingDots + 2
                 } * ${idx - props.currentIdx})`,
 
-                transition: 'top 400ms',
+                transition: `top ${duration} ease`,
               }}
             >
               <Dot
+                duration={duration}
                 key={idx}
                 size={width}
                 active={idx === props.currentIdx || idx === hoveringIdx}
@@ -113,7 +120,7 @@ export function Indicators(props: {
                 fontWeight: 'bold',
                 cursor: 'pointer',
 
-                transition: 'top 400ms',
+                transition: `top ${duration} ease`,
               }}
               onMouseEnter={() => setHoveringIdx(idx)}
               onMouseLeave={() => setHoveringIdx(null)}
@@ -122,7 +129,7 @@ export function Indicators(props: {
               <Box
                 sx={{
                   cursor: 'pointer',
-                  transition: 'transform 400ms',
+                  transition: `transform ${duration} ease`,
                   transform: `scale(${
                     idx === props.currentIdx || idx === hoveringIdx
                       ? '1,1'
