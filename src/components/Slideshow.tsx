@@ -1,8 +1,9 @@
 import { Surface } from 'gl-react-dom';
 import GLImage from 'gl-react-image';
-import GLTransitions from 'gl-transitions';
 import React, { useEffect, useState } from 'react';
 import GLTransition from 'react-gl-transition';
+
+import { useDelayedState } from '../hooks/delayed-state';
 
 function usePrevious<T>(value: T) {
   const [temp, setTemp] = useState<T | null>(null);
@@ -25,7 +26,7 @@ const newTransition = {
   const vec2 center = vec2(1.1, 0.9);
   const vec2 center2 = vec2(1., 0.);
   const float rotations = -.47;
-  const float scale = 2.;
+  const float scale = 1.8;
   float Exponential_easeInOut(in float begin, in float change, in float duration, in float time) {
       if (time == 0.0)
           return begin;
@@ -41,7 +42,8 @@ const newTransition = {
     return 1.0 - abs(1.0 - mod(uv, 2.0));
   }
   float rand (vec2 co) {
-    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+    return 0.;
+    // return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
   }
   vec2 rotated(vec2 uv, vec2 origin, float t) {
     vec2 difference = uv - origin;
@@ -76,32 +78,35 @@ export const Slideshow = (props: {
   slides: { image: string }[];
   duration?: number;
   currentIdx: number;
+  delay?: number;
 }) => {
-  const { duration = 1500 } = props;
-  const [currentIdx, setCurrentIdx] = useState(props.currentIdx);
+  const { duration = 2050, delay = 200 } = props;
+  const [delayedCurrentIdx] = useDelayedState(props.currentIdx, delay);
+  const [currentIdx, setCurrentIdx] = useState(
+    delayedCurrentIdx ?? props.currentIdx
+  );
   const previousIdx = usePrevious(currentIdx);
   const from = props.slides[previousIdx ?? currentIdx].image;
   const to = props.slides[currentIdx].image;
-  const transition = GLTransitions[10];
   const [progress, setProgress] = useState(0);
   const INTERVAL = 1000 / 60;
   useEffect(() => {
-    if (progress >= 1 && props.currentIdx !== currentIdx) {
+    if (
+      progress >= 1 &&
+      delayedCurrentIdx !== currentIdx &&
+      delayedCurrentIdx !== null
+    ) {
       setProgress(0);
-      setCurrentIdx(props.currentIdx);
+      setCurrentIdx(delayedCurrentIdx);
     }
-  }, [props.currentIdx, progress < 1]);
+  }, [delayedCurrentIdx, progress < 1]);
   useEffect(() => {
     if (progress < 1) {
       setTimeout(() => {
         setProgress(progress + INTERVAL / duration);
       }, INTERVAL);
-    } else {
-      // setDoneIdx(props.currentIdx);
-      // console.log('set done', props.currentIdx);
     }
   }, [progress]);
-  // console.log(progress, previousIdx, props.currentIdx);
   const vw = Math.max(
     document.documentElement.clientWidth || 0,
     window.innerWidth || 0
@@ -111,11 +116,9 @@ export const Slideshow = (props: {
     window.innerHeight || 0
   );
 
-  // console.log(progress, previousIdx, props.currentIdx, doneIdx);
-
   return (
     <Surface width={vw} height={vh}>
-      {progress > 0 ? (
+      {progress > 0 && from !== to ? (
         <GLTransition
           from={<GLImage source={from} resizeMode="cover" />}
           to={<GLImage source={to} resizeMode="cover" />}

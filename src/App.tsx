@@ -12,62 +12,6 @@ const description =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 const data = [
   {
-    title: 'Australia',
-    buttonColor: 'red',
-    description: `1 ${description}`,
-    image: 'https://via.placeholder.com/1920x1080/333333',
-    items: [
-      {
-        title: '11',
-        rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=11',
-      },
-      {
-        title: '12',
-        rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=12',
-      },
-      {
-        title: '13',
-        rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=13',
-      },
-      {
-        title: '14',
-        rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=14',
-      },
-    ],
-  },
-  {
-    title: 'Europe',
-    buttonColor: 'blue',
-    description: `2 ${description.toUpperCase()}`,
-    image: 'https://via.placeholder.com/1920x1080/222222',
-    items: [
-      {
-        title: '21',
-        rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=21',
-      },
-      {
-        title: '22',
-        rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=22',
-      },
-      {
-        title: '23',
-        rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=23',
-      },
-      {
-        title: '24',
-        rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=24',
-      },
-    ],
-  },
-  {
     title: 'Africa',
     buttonColor: '#603232',
     description: `3 ${description}`,
@@ -127,55 +71,83 @@ const data = [
     title: 'America',
     buttonColor: 'orange',
     description: `5 ${description}`,
-    image: 'https://via.placeholder.com/1920x1080/333333',
+    image: '/images/america-0.jpg',
     items: [
       {
-        title: '51',
+        title: '31',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=51',
+        image: '/images/america-1.jpg',
       },
       {
-        title: '52',
+        title: '32',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=52',
+        image: '/images/america-2.jpg',
       },
       {
-        title: '53',
+        title: '33',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=53',
+        image: '/images/america-3.jpg',
       },
       {
-        title: '54',
+        title: '34',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=54',
+        image: '/images/america-4.jpg',
       },
     ],
   },
   {
-    title: 'Arctic',
+    title: 'Australia',
     buttonColor: 'red',
-    description: `6 ${description.toUpperCase()}`,
-    image: 'https://via.placeholder.com/1920x1080/333333',
+    description: `1 ${description}`,
+    image: '/images/asia-0.jpg',
     items: [
       {
-        title: '61',
+        title: '41',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=61',
+        image: '/images/asia-1.jpg',
       },
       {
-        title: '62',
+        title: '42',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=62',
+        image: '/images/asia-2.jpg',
       },
       {
-        title: '63',
+        title: '43',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=63',
+        image: '/images/asia-3.jpg',
       },
       {
-        title: '64',
+        title: '44',
         rate: 4,
-        image: 'https://via.placeholder.com/468x600?text=64',
+        image: 'https://via.placeholder.com/468x600?text=44',
+      },
+    ],
+  },
+  {
+    title: 'Europe',
+    buttonColor: 'blue',
+    description: `2 ${description.toUpperCase()}`,
+    image: '/images/euro-0.jpg',
+    items: [
+      {
+        title: '31',
+        rate: 4,
+        image: '/images/euro-1.jpg',
+      },
+      {
+        title: '32',
+        rate: 4,
+        image: '/images/euro-2.jpg',
+      },
+      {
+        title: '33',
+        rate: 4,
+        image: '/images/euro-3.jpg',
+      },
+      {
+        title: '34',
+        rate: 4,
+        image: '/images/euro-4.jpg',
       },
     ],
   },

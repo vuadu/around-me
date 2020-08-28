@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { animated, useTransition } from 'react-spring';
 import { AspectImage, Box, Flex, Text } from 'theme-ui';
 
+import { useDelayedState } from '../hooks/delayed-state';
+
 const Controls = (props: { onNext?: () => void; onPrev?: () => void }) => (
   <Flex sx={{ color: 'white', fontSize: 32 }}>
     <Flex
@@ -91,19 +93,6 @@ export const AspectRatio = ({
     </Box>
   </Box>
 );
-
-function useDelayedState<T>(value: T, delay: number) {
-  const [state, setState] = useState<T | null>(null);
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setState(value);
-    }, delay);
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [value]);
-  return [state];
-}
 
 const IMAGE_RATIO = 401 / 569;
 
